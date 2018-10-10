@@ -1,3 +1,5 @@
+/*Remove Dups: Write code to remove duplicates from an unsorted linked list.*/
+
 package linkedlist;
 
 import java.util.ArrayList;
