@@ -14,7 +14,7 @@ public class Djikstra {
 
 	int vertices;
 
-	static class Node {
+	 class Node {
 		int vertex;
 		int weight;
 
@@ -31,6 +31,39 @@ public class Djikstra {
 		public String toString() {
 			return vertex + " (" + weight + ")";
 		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + vertex;
+			result = prime * result + weight;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Node other = (Node) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (vertex != other.vertex)
+				return false;
+			
+			return true;
+		}
+
+		private Djikstra getOuterType() {
+			return Djikstra.this;
+		}
+		
+		
 	}
 
 	Map<Integer, List<Node>> graph;
@@ -73,7 +106,7 @@ public class Djikstra {
 				if (!visited.contains(neighbour.vertex)
 						&& distance[neighbour.vertex] > distance[n.vertex] + neighbour.weight) {
 					
-					minHeap.remove(neighbour);
+					System.out.println("Remove : "+minHeap.remove(neighbour));
 					distance[neighbour.vertex] = distance[n.vertex] + neighbour.weight;
 
 					Node temp = new Node(neighbour.vertex, distance[neighbour.vertex]);
