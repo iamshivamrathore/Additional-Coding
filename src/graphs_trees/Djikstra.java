@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.Set;
 
-public class Djikstra {
+public class TestClass {
 
 	int vertices;
 
-	 class Node {
+	class Node {
 		int vertex;
 		int weight;
 
@@ -55,20 +56,19 @@ public class Djikstra {
 				return false;
 			if (vertex != other.vertex)
 				return false;
-			
+
 			return true;
 		}
 
-		private Djikstra getOuterType() {
-			return Djikstra.this;
+		private TestClass getOuterType() {
+			return TestClass.this;
 		}
-		
-		
+
 	}
 
 	Map<Integer, List<Node>> graph;
 
-	Djikstra(int vertices) {
+	TestClass(int vertices) {
 		this.vertices = vertices;
 
 		graph = new HashMap<Integer, List<Node>>();
@@ -78,7 +78,7 @@ public class Djikstra {
 		}
 	}
 
-	void findDjikstra(int source) {
+	int[] findTestClass(int source) {
 		Queue<Node> minHeap = initializeMinHeap(source);
 		int distance[] = new int[vertices];
 
@@ -87,49 +87,58 @@ public class Djikstra {
 		}
 		distance[source] = 0;
 
-		System.out.println("Generated minHeap : " + minHeap);
+	 	System.out.println("Generated minHeap : " + minHeap);
 		Set<Integer> visited = new HashSet<>();
 		visited.add(source);
 		while (!minHeap.isEmpty()) {
 
 			Node n = minHeap.poll();
 			visited.add(n.vertex);
-			System.out.println("\n\nPopped from minHeap : " + n);
+	 		System.out.println("\n\nPopped from minHeap : " + n);
 
 			List<Node> neighbours = graph.get(n.vertex);
-			System.out.print("Neighbours are : " + neighbours);
+	 		System.out.print("Neighbours are : " + neighbours);
 
 			for (int i = 0; i < neighbours.size(); i++) {
 				Node neighbour = neighbours.get(i);
-				System.out.print("\tNeighbour : " + neighbour);
+	 			System.out.print("\tNeighbour : " + neighbour);
 
 				if (!visited.contains(neighbour.vertex)
 						&& distance[neighbour.vertex] > distance[n.vertex] + neighbour.weight) {
-					
-					System.out.println("Remove : "+minHeap.remove(neighbour));
+
+	 				System.out.println("Remove : " + minHeap.remove(neighbour));
 					distance[neighbour.vertex] = distance[n.vertex] + neighbour.weight;
 
 					Node temp = new Node(neighbour.vertex, distance[neighbour.vertex]);
 					minHeap.add(temp);
-					System.out.print("\tUpdating : "+neighbour.vertex+" new distance : "+distance[neighbour.vertex]);
-					// if(distance[neighbour.vertex] < min_dist) {
-					// min_dist = distance[neighbour.vertex];
-					// min = neighbour;
-					// }
+	 				System.out.print(
+	 						"\tUpdating : " + neighbour.vertex + " new distance : " + distance[neighbour.vertex]);
+					  if(distance[neighbour.vertex] < min_dist) {
+					  min_dist = distance[neighbour.vertex];
+					  min = neighbour;
+					  }
 				}
 
 			}
-			System.out.println("\nMinHeap : " + minHeap);
+ 			System.out.println("\nMinHeap : " + minHeap);
 
 		}
 
-		for (int i = 0; i < vertices; i++) {
-			System.out.print(i + " " + distance[i] + "\t");
-		}
+ 		System.out.println("\n\n\nResult : ");
+ 		for (int i = 0; i < vertices; i++) {
+ 			System.out.print(i + " " + distance[i] + "\t");
+ 		}
+		
+		return distance;
 	}
 
 	void addEdge(int source, int dest, int weight) {
 		Node n = new Node(dest, weight);
+		graph.get(source).add(n);
+	}
+
+	void addEdge(int source, int dest) {
+		Node n = new Node(dest, 1);
 		graph.get(source).add(n);
 	}
 
@@ -162,13 +171,20 @@ public class Djikstra {
 	}
 
 	public static void main(String[] args) {
-		Djikstra ob = new Djikstra(5);
-		ob.addEdge(0, 1, 5);
-		ob.addEdge(0, 2, 15);
-		ob.addEdge(1, 2, 6);
-		ob.addEdge(2, 3, 2);
-		System.out.println(ob.graph);
-		ob.findDjikstra(0);
+		Scanner scanner = new Scanner(System.in);
+		int t = scanner.nextInt();
+		for (int i = 0; i < t; i++) {
+			int n = scanner.nextInt();
+			int m = scanner.nextInt();
+			TestClass ob = new TestClass(n);
+			for (int j = 0; j < m; j++) {
+				ob.addEdge(scanner.nextInt()-1, scanner.nextInt()-1);
+			}
+
+			int ans[] = ob.findTestClass(0);
+			System.out.println(ans[n-1]);
+		}
+		scanner.close();
 
 	}
 }

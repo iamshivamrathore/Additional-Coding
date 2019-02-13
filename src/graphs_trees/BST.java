@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-class Node {
-	Node left;
-	Node right;
+class BSTNode {
+	BSTNode left;
+	BSTNode right;
 	int data;
 
-	Node(int data) {
+	BSTNode(int data) {
 		this.data = data;
 		
 	}
@@ -21,9 +21,9 @@ class Node {
 
 public class BST {
 
-	Node root;
+	BSTNode root;
 
-	boolean find(Node temp, int num) {
+	boolean find(BSTNode temp, int num) {
 
 		if (temp == null) {
 			return false;
@@ -38,22 +38,22 @@ public class BST {
 		}
 	}
 
-	void insert(Node temp, int num) {
+	void insert(BSTNode temp, int num) {
 		if (temp.right == null && temp.left == null) {
 			if (num > temp.data) {
-				temp.right = new Node(num);
+				temp.right = new BSTNode(num);
 			} else {
-				temp.left = new Node(num);
+				temp.left = new BSTNode(num);
 			}
 		} else if (num > temp.data) {
 			if (temp.right == null) {
-				temp.right = new Node(num);
+				temp.right = new BSTNode(num);
 			} else {
 				insert(temp.right, num);
 			}
 		} else {
 			if (temp.left == null) {
-				temp.left = new Node(num);
+				temp.left = new BSTNode(num);
 			} else {
 				insert(temp.left, num);
 			}
@@ -61,21 +61,21 @@ public class BST {
 
 	}
 
-	void displayLevelOrder(Node temp) {
+	void displayLevelOrder(BSTNode temp) {
 		List<List> lists = new LinkedList<List>();
 
-		Queue<Node> queue = new LinkedList<>();
+		Queue<BSTNode> queue = new LinkedList<>();
 		queue.add(temp);
 
 		while (!queue.isEmpty()) {
-			LinkedList<Node> list = new LinkedList<>();
+			LinkedList<BSTNode> list = new LinkedList<>();
 
 			while (!queue.isEmpty()) {
 				list.add(queue.remove());
 			}
 
 			for (int i = 0; i < list.size(); i++) {
-				Node n = list.get(i);
+				BSTNode n = list.get(i);
 				if (n.left != null) {
 					queue.add(n.left);
 				}
@@ -96,16 +96,16 @@ public class BST {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Node node = new Node(5);
+		BSTNode bSTNode = new BSTNode(5);
 		BST bst = new BST();
-		bst.root = node;
-		bst.root.left = new Node(3);
-		bst.root.left.left = new Node(1);
-		bst.root.left.right = new Node(2);
+		bst.root = bSTNode;
+		bst.root.left = new BSTNode(3);
+		bst.root.left.left = new BSTNode(1);
+		bst.root.left.right = new BSTNode(2);
 
-		bst.root.right = new Node(7);
-		bst.root.right.left = new Node(6);
-		bst.root.right.right = new Node(8);
+		bst.root.right = new BSTNode(7);
+		bst.root.right.left = new BSTNode(6);
+		bst.root.right.right = new BSTNode(8);
 		System.out.println(bst.find(bst.root, 2));
 		bst.insert(bst.root, 2);
 		System.out.println(bst.find(bst.root, 2));
