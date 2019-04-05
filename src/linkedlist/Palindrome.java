@@ -21,7 +21,7 @@ public class Palindrome {
 		Node curr1 = head1;
 		Node curr2 = head2;
 		while (curr1 != null && curr2 != null) {
-			if (curr1.num != curr2.num) {
+			if (curr1.data != curr2.data) {
 				return false;
 			}
 			curr1 = curr1.next;

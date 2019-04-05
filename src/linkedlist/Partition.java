@@ -19,7 +19,7 @@ public class Partition {
 		head.next.next = new Node(6);
 		head.next.next.next = new Node(8);
 		head.next.next.next.next = new Node(2);
-		int el = 6;
+		int el = 5;
 
 		head.display();
 
@@ -29,24 +29,40 @@ public class Partition {
 
 	}
 
-	private static Node partition(Node head, int el) {
+	private static Node partition(Node node, int el) {
 		// TODO Auto-generated method stub
-		Node curr = head;
-		Node prev = head;
-		while (curr != null) {
-			if (curr.num < el) {
-				
-				prev.next = curr.next;
-				curr.next = head;
-				head = curr;
-				curr = prev;
-			//	System.out.print("Smaller");
+//		Node curr = head;
+//		Node prev = head;
+//		while (curr != null) {
+//			if (curr.num < el) {				
+//				prev.next = curr.next;
+//				curr.next = head;
+//				head = curr;
+//				curr = prev;
+//				
+//			} else {
+//				prev = curr;
+//				curr = curr.next;
+//			}
+//		}
+//		return head;
+
+		Node newHead = node;
+		Node newTail = node;
+		while (node != null) {
+			Node tempNode = node.next;
+			if (node.data < el) {
+				node.next = newHead;
+				newHead = node;
 			} else {
-				prev = curr;
-				curr = curr.next;
+				newTail.next = node;
+				newTail = node;
 			}
+			node = tempNode;
 		}
-		return head;
+
+		newTail.next = null;
+		return newHead;
 
 	}
 

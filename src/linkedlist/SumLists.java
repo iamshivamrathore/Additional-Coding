@@ -32,7 +32,7 @@ public class SumLists {
 		int carry = 0;
 
 		while (num1 != null && num2 != null) {
-			int add = num1.num + num2.num + carry;
+			int add = num1.data + num2.data + carry;
 			if (num3 == null) {
 				num3 = new Node(add % 10);
 			}else {

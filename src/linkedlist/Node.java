@@ -5,11 +5,11 @@ package linkedlist;
 public class Node {
 
 	
-	int num;
+	int data;
 	Node next;
 
 	Node(int num) {
-		this.num = num;
+		this.data = num;
 		this.next = null;
 	}
 
@@ -41,7 +41,7 @@ public class Node {
 		System.out.print("List : ");
 		Node curr = this;
 		while (curr != null) {
-			System.out.print(curr.num + " ");
+			System.out.print(curr.data + " ");
 			curr = curr.next;
 		}
 		System.out.println();
@@ -49,12 +49,12 @@ public class Node {
 
 	Node reverse() {
 		Node head2 = new Node();
-		head2.num = this.num;
+		head2.data = this.data;
 		
 		Node curr = this.next;
 		while(curr != null) {
 			Node num2 = new Node();
-			num2.num = curr.num;
+			num2.data = curr.data;
 			num2.next = head2;
 			head2 = num2;
 			curr = curr.next;
@@ -62,6 +62,6 @@ public class Node {
 		return head2;
 	}
 	public String toString() {
-		return num + " ";
+		return data + " ";
 	}
 }
